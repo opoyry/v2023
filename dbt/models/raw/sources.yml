@@ -1,0 +1,62 @@
+version: 2
+sources:
+  - name: external_source
+    loaded_at_field: _loaded_at
+    meta:
+      external_location:  "{{ 's3://essaimdev/snowflake/gl_sample_data/{name}.parquet' if target.name == 'prod' else '~/oma/v2023/2023/{name}.parquet' }}"
+      # "{{var('external_location')}}" 
+      # "~/oma/v2023/2023/{name}.parquet"
+    config:
+          enabled: true # "{{ var('my_source_table_enabled', false) }}"
+        # external_location: "s3://datafy-dp-samples-ympfsg/TPCDS-TEST-100G/{name}/*.parquet"
+    tables:
+      - name: tiliote_manual_vienti
+        description: One record per person who has purchased one or more items
+      - name: manual_journal
+        description: From Excel sheet through rules to journal entries
+
+  - name: external_csv
+    loaded_at_field: _loaded_at
+    meta:
+      external_location:  "{{ 's3://essaimdev/snowflake/gl_sample_data/{name}.csv' if target.name == 'prod' else '~/oma/v2023/2023/{name}.csv' }}"
+    tables:
+      - name: tiliote_manual_vienti
+
+  - name: external_s3
+    database: OLLIDEMODB
+    schema: V2023
+    loader: S3
+    tables:
+      - name: bank_statement
+        ext_full_refresh: true
+        description: This is external table created as stage from dbt.
+        external:
+          location: "@stg_s3_bank_statement"  
+          file_format: '( type = parquet )'
+      - name: manual_journal
+        ext_full_refresh: true
+        description: This is external table created as stage from dbt.
+        external:
+          location: "@stg_s3_manual_journal"  
+          file_format: '( type = parquet )'
+      - name: tiliote_manual_vienti
+        ext_full_refresh: true
+        external:
+          location: "@stg_s3_tiliote_manual_vienti"
+          #file_format: '( type = csv )'
+          file_format: >
+            (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY = '"' SKIP_HEADER = 1 TRIM_SPACE = TRUE ESCAPE_UNENCLOSED_FIELD = NONE)
+          #columns:
+          #- name: pvm
+          #  data_type: date
+          #- name: viite
+          #  data_type: varchar(255)
+          #- name: summa
+          #- name: tili
+
+#  - name: v2003
+#    schema: v2023
+#    description: Kirjanpidon aineisto
+#    tables:
+#      - name: bO_tiliote
+#        description: One record per person who has purchased one or more items

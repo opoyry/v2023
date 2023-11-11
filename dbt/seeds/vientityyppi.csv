@@ -1,0 +1,18 @@
+kdi,template,similar_vs_like
+2940,1009 OLLI OMA TILI FI4580002116003350,true
+2940,1009 OLLI OMA TILI FI4580002116003350,false
+1701-twoday,%103826 TWODAY OY%Maksajan viite:%,false
+1701-twoday,TWODAY,true
+1701-twoday,%TWODAY%,false
+1701-twoday,% TWODAY OY Maksajan%viite:%,
+1701-millisecond,.*MILLISECOND.*OY.*Maksajan.*viite:.*,true
+1701-oivalo,OIVALO OY.*viite:,true
+8560,Palvelumaksut yhteensä.*Erittely:.*,true
+8560,Maksuliiketili kk-maksu.*,true
+7230,142601280128991 Hgin Tiedepuiston Yrityshautomot.*,true
+8680,671013775321578739 HSL FI2516603000078751,false
+2920,600109898403 Verohallinto.*,true
+9900,RF57200126320778 Verohallinto FI5689199710000724,true
+9900,OmaVero FI5689199710000724,true
+6100,230552171100018 ELÄKEVAKUUTUSYHTIÖ VARMA-SAMPO.*,true
+8680,.* HSL .*,true

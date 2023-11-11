@@ -1,0 +1,22 @@
+v2023_dev:
+
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '../2023/v2023.duckdb'
+      threads: 24
+
+v2023_prod:
+
+  target: prod
+  outputs:
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_SANDBOX_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_SANDBOX_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_SANDBOX_PASSWORD') }}"
+      database: ollidemodb
+      warehouse: compute_wh
+      schema: v2023
+      threads: 8

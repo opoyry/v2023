@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_tiliote_vienti
+    columns:
+      - name: tili
+        type: string
+        tests:
+          - not_null
