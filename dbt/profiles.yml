@@ -1,4 +1,4 @@
-v2023_dev:
+local:
 
   target: dev
   outputs:

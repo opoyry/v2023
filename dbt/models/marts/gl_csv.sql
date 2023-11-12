@@ -1,11 +1,11 @@
 {{
   config(
-    materialized='view',
-    post_hook='' if target.name == 'prod' else 'COPY gl_csv TO \'gl_csv.csv\' (HEADER, DELIMITER \',\')'
+    materialized='table',
+    post_hook='COPY gl_csv TO \'gl_csv.csv\' (HEADER, DELIMITER \',\')' if target.type == 'duckdb'  else ''
   )
 }}
 
-select a.pvm, a.tili, a.dimensio, a.summa, concat('{{target.type}}' , a.viite ) as muistio
+select a.pvm, a.tili, a.dimensio, a.summa, a.viite as muistio
 from  {{ ref( 'stg_tiliote_vienti' ) }} a
 union
 select b.pvm, b.tili, b.dimensio, b.summa, b.muistio

@@ -1,11 +1,10 @@
-
 - !GlRule
   code: 10
   name: Myynti
   debetOrCredit:
-  - !Credit {account: '3000', varname: Amount}
-  - !Credit {account: '2939', varname: Tax}
-  - !Debet {account: '1701', varname: Amount, varname2: Tax, dim: 'Dim1'}
+    - !Credit { account: "3000", varname: Amount }
+    - !Credit { account: "2939", varname: Tax }
+    - !Debet { account: "1701", varname: Amount, varname2: Tax, dim: "Dim1" }
   prefix: ML
 
 # 2018
@@ -13,69 +12,74 @@
   code: 1
   name: Tiliote
   debetOrCredit:
-  - !Credit { account: 'Account', varname: Amount, dim: dim, memo: seli }
-  - !Debet  {account: '1910', varname: Amount }
+    - !Credit { account: "Account", varname: Amount, dim: dim, memo: seli }
+    - !Debet { account: "1910", varname: Amount }
   prefix: PNK
 
 - !GlRule
   code: 21
   name: Palkka
   debetOrCredit:
-  - !Debet {account: '5000', varname: tulo}
-  - !Credit {account: '2920', varname: ennpid}
-  - !Credit {account: '2940', varname: maksettu}
-  - !Debet {account: '6300', varname: sotu}
-  - !Credit {account: '2920', varname: sotu}
-  prefix: 'PLK'
+    - !Debet { account: "5000", varname: tulo }
+    - !Credit { account: "2920", varname: ennpid }
+    - !Credit { account: "2940", varname: maksettu }
+    - !Debet { account: "6300", varname: sotu }
+    - !Credit { account: "2920", varname: sotu }
+  prefix: "PLK"
 
 - !GlRule
   code: 22
   name: ALV
   debetOrCredit:
-  - !Debet {account: '2939', varname: alv}
-  - !Credit {account: '2920', varname: alv}
-  - !Debet {account: '2920', varname: vah}
-  - !Credit {account: '2939', varname: vah}
+    - !Debet { account: "2939", varname: alv }
+    - !Credit { account: "2920", varname: alv }
+    - !Debet { account: "2920", varname: vah }
+    - !Credit { account: "2939", varname: vah }
   prefix: KP
 
 - !GlRule
   code: 30
   name: kirjanpito_vero_varma_hbsp
   debetOrCredit:
-  - !Debet {varname: Amount}
-  - !Debet {account: '2939', varname: Tax }
-  - !Credit {account: '2871', varname: Amount, varname2: Tax, dim: Dim1}
+    - !Debet { varname: Amount }
+    - !Debet { account: "2939", varname: Tax }
+    - !Credit { account: "2871", varname: Amount, varname2: Tax, dim: Dim1 }
   prefix: OL
 - !GlRule
   code: 40
   name: Ostolaskut
   debetOrCredit:
-  - !Debet {varname: Amount}
-  - !Debet {account: '2939', varname: Tax }
-  - !Credit {account: '2871', varname: Amount, varname2: Tax}
-  prefix: OL 
+    - !Debet { varname: Amount }
+    - !Debet { account: "2939", varname: Tax }
+    - !Credit { account: "2871", varname: Amount, varname2: Tax }
+  prefix: OL
 - !GlRule
   code: 50
   name: Kateisostot
   debetOrCredit:
-  - !Debet {varname: Netto, dim: 'Dim1'}
-  - !Debet {account: '2939', varname: Alv }
-  - !Credit {account: '2940', varname: Netto, varname2: Alv}
-  prefix: KAT   
+    - !Debet { varname: Netto, dim: "Dim1" }
+    - !Debet { account: "2939", varname: Alv }
+    - !Credit { account: "2940", varname: Netto, varname2: Alv }
+  prefix: KAT
 - !GlRule
   code: 100
   name: Tiliote
   debetOrCredit:
-  - !Credit { account: 'tili', varname: summa, dim: dim, memo: seli }
-  - !Debet  {account: '1910', varname: summa }
-  prefix: PNK   
+    - !Credit { account: "tili", varname: summa, dim: dim, memo: seli }
+    - !Debet { account: "1910", varname: summa }
+  prefix: PNK
 
 - !GlRule
   code: 98
   name: ALV tilitys
   debetOrCredit:
-  - !Credit { account: '2920', varname: Amount, dim: dim, memo: 'ALV tilitys' }
-  - !Debet  {account: '2939', varname: Amount, dim: dim, memo: 'ALV tilitys' }
+    - !Credit {
+        account: "2920",
+        varname: Amount,
+        dim: dim,
+        memo: "ALV tilitys",
+      }
+    - !Debet { account: "2939", varname: Amount, dim: dim, memo: "ALV tilitys" }
   prefix: KP
 
 # 2018
@@ -83,14 +87,14 @@
   code: 99
   name: Muu vienti
   debetOrCredit:
-  - !Credit { account: 'AccountC', varname: Amount, dim: dim, memo: seli }
-  - !Debet  {account: 'AccountD', varname: Amount }
+    - !Credit { account: "AccountC", varname: Amount, dim: dim, memo: seli }
+    - !Debet { account: "AccountD", varname: Amount }
   prefix: KP
 
 - !GlRule
   code: 6870
   name: Poisto
   debetOrCredit:
-  - !Debet { account: '6870', varname: Amount, dim: dim, memo: 'Poisto' }
-  - !Credit  {account: '1161', varname: Amount, dim: dim, memo: 'Poisto' }
+    - !Debet { account: "6870", varname: Amount, dim: dim, memo: "Poisto" }
+    - !Credit { account: "1161", varname: Amount, dim: dim, memo: "Poisto" }
   prefix: KP

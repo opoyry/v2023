@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ source( 'external_s3' if target.name == 'prod' else 'external_source', 'manual_journal' ) }}
+    select * from {{ source( 'external_local' if target.type == 'duckdb' else 'external_s3', 'manual_journal_entries' ) }}
 ),
 renamed as (
     select
@@ -9,7 +9,7 @@ renamed as (
         $1:Dim1 as dimensio,
         $1:Memo as muistio,
         $1:Date as pvm
-{% else %}
+        {% else %}
         "Account" as tili,
         "Amount" as summa,
         "Dim1" as dimensio,
