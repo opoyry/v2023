@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ source(  'external_s3' if target.name == 'prod' else 'external_source', 'bank_statement' ) }}
+    select * from {{ source(  'external_local' if target.type == 'duckdb' else 'external_s3', 'bank_statement' ) }}
 ),
 renamed as (
     select

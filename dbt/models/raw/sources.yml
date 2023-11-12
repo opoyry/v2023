@@ -1,6 +1,6 @@
 version: 2
 sources:
-  - name: external_source
+  - name: external_local
     loaded_at_field: _loaded_at
     meta:
       external_location:  "{{ 's3://essaimdev/snowflake/gl_sample_data/{name}.parquet' if target.name == 'prod' else '~/oma/v2023/2023/{name}.parquet' }}"
@@ -12,9 +12,10 @@ sources:
     tables:
       - name: tiliote_manual_vienti
         description: One record per person who has purchased one or more items
-      - name: manual_journal
+      - name: manual_journal_entries
         description: From Excel sheet through rules to journal entries
-
+      - name: bank_statement
+ 
   - name: external_csv
     loaded_at_field: _loaded_at
     meta:
@@ -33,7 +34,7 @@ sources:
         external:
           location: "@stg_s3_bank_statement"  
           file_format: '( type = parquet )'
-      - name: manual_journal
+      - name: manual_journal_entries
         ext_full_refresh: true
         description: This is external table created as stage from dbt.
         external:

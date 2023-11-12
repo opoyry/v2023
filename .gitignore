@@ -160,3 +160,5 @@ cython_debug/
 #.idea/
 logs/
 2023/
+dbt/gl_csv.csv
+snowsql_rt.log_bootstrap
