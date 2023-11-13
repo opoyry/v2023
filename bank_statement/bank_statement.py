@@ -3,6 +3,7 @@ import os
 import xml.etree.cElementTree as ET
 
 import pandas as pd
+from awsglue.utils import getResolvedOptions
 from dotenv import load_dotenv
 
 # This script is used to parse the bank statement Excel XML file to a parquet file.

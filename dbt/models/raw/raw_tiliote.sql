@@ -3,14 +3,14 @@ with source as (
 ),
 renamed as (
     select
-{% if target.name == 'prod' %}
+{% if target.type == 'snowflake' %}
         $1:Rivino as jarjno,
         DATE( $1:"Kirjauspäivä", 'DD.MM.YYYY' ) as pvm,
         DATE( $1:"Arvopäivä", 'DD.MM.YYYY' ) as arvopvm,
-        $1:"Viite/viesti" as viite,
+        $1:"Viite/viesti"::string as viite,
         cast($1:"Määrä EUR" as double) eur,
-        $1:Arkistointitunnus as reference,
-        $1:Tila as tila
+        $1:Arkistointitunnus::string as reference,
+        $1:Tila::string as tila
 {% else %}
         ROW_NUMBER() over () as jarjno,
         strptime( "Kirjauspäivä", '%d.%m.%Y' )::DATE as pvm,

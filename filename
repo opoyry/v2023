@@ -1,0 +1,27 @@
+issuer: DNA Oyj
+keywords:
+  - DNA Oyj
+  - LASKU
+  - 01044 DNA
+fields:
+  amount: Veloitukset yhteensä.*(?:\d+,\d{2}).*?(?:\d+,\d{2}).*?(\d+,\d{2})
+  amount_vat:  Veloitukset yhteensä.*(?:\d+,\d{2}).*?(\d+,\d{2}).*?(?:\d+,\d{2})
+  invoice_number: Laskunumero:\s+(\d+)
+  date: Laskun päiväys:.*(\d{1,2}.\d{1,2}.\d{4})
+  duedate: Eräpäivä:.*(\d{2}.\d{2}.\d{4})
+  period_start: Laskutuskausi:.*(\d{2}.\d{2}.\d{4}) - \d{2}.\d{2}.\d{4}
+  period_end: Laskutuskausi:.*\d{2}.\d{2}.\d{4} - (\d{2}.\d{2}.\d{4})
+  phone_number: Liittymän numero       .*?(\d{4,12})
+  phone_user: Liittymän käyttäjä       .*?(\w.+)
+required_fields:
+  - currency
+  - issuer
+  - invoice_number  
+  - amount
+  - amount_vat
+options:
+  remove_whitespace : false
+  currency: EUR
+  languages:
+    - fi
+  decimal_separator: ','

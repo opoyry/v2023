@@ -162,3 +162,10 @@ logs/
 2023/
 dbt/gl_csv.csv
 snowsql_rt.log_bootstrap
+read_pdf_invoices/out
+**/.DS_Store
+ziplib
+read_pdf_invoices/invoice_read_lambda/package
+read_pdf_invoices/invoice_read_lambda/my_deployment_package.zip
+read_pdf_invoices/invoice_read_lambda/lambda-read-invoice.zip
+masked

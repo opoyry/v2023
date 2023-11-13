@@ -1,0 +1,28 @@
+issuer: Elisa Oyj
+keywords:
+  - Elisa Oyj
+  - LASKU
+  - 00061 ELISA
+fields:
+  amount:  YHTEENSÄ \s+(\d+,\d{2})
+  invoice_number: Laskun numero\s+(\d+)
+  date: Laskun päiväys\s+(\d{1,2}.\d{1,2}.\d{4})
+  duedate: Eräpäivä\s+(\d{2}.\d{2}.\d{4})
+  amount_vat_0: Ei-vähennyskelpoiset veloitukset yhteensä\s+(\d+,\d{2})
+  amount_vat_0b: ALV 0 % \s+\d+,\d{2}\s+(\d+,\d{2})\s+\d+,\d{2}
+  amount_vat_10: ALV 10 % \s+\d+,\d{2}\s+(\d+,\d{2})\s+\d+,\d{2}
+  amount_vat_24: ALV 24 % \s+\d+,\d{2}\s+(\d+,\d{2})\s+\d+,\d{2}
+  penaltyinterest: Viivästyskorko.*(\d+,\d{2})
+  product: (Elisa Viihde|Saunalahti Kotipuhelin|Elisa Talokuitu|Saunalahti Huoleton Premium|Saunalahti Kotikuitu)
+required_fields:
+  - currency
+  - issuer
+  - invoice_number  
+options:
+  remove_whitespace : false
+  currency: EUR
+  date_formats:
+    - '%d.%m.%Y' # 13.12.2018
+  languages:
+    - fi
+  decimal_separator: ','

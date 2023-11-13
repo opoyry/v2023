@@ -1,5 +1,5 @@
     select
-{% if target.name == 'prod' %}
+{% if target.type == 'snowflake' %}
         cast( $1:c1 as date ) as pvm,
         cast( $1:c2 as string ) as viite,
         cast( $1:c3 as string ) as tili,

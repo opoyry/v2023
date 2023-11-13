@@ -3,13 +3,13 @@ with source as (
 ),
 renamed as (
     select
-{% if target.name == 'prod' %}
-        $1:Account as tili,
-        $1:Amount as summa,
-        $1:Dim1 as dimensio,
-        $1:Memo as muistio,
-        $1:Date as pvm
-        {% else %}
+{% if target.type == 'snowflake' %}
+        $1:Account::string as tili,
+        $1:Amount::number(10,2) as summa,
+        $1:Dim1::string as dimensio,
+        $1:Memo::string as muistio,
+        $1:Date::DATE as pvm
+{% else %}
         "Account" as tili,
         "Amount" as summa,
         "Dim1" as dimensio,
