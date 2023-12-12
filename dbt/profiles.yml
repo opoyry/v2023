@@ -1,3 +1,5 @@
+
+# -- Duckdb
 local:
 
   target: dev
@@ -7,6 +9,7 @@ local:
       path: '../2023/v2023.duckdb'
       threads: 24
 
+# -- Snowflake
 v2023_prod:
 
   target: prod

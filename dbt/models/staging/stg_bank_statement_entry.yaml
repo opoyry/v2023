@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_tiliote_vienti
+  - name: stg_bank_statement_entry
     columns:
       - name: tili
         type: string

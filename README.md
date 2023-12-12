@@ -3,6 +3,8 @@
 Purpose of this application is to automate GL journal entry CSV file creation from manual journal entries and bank statement.
 Role of dbt is to create a CSV file which is then imported to GL system. This CSV file has date, account number, an optional dimension, amount and memo fields.
 
+dbt run --full-refresh
+
 Desired end result is a single CSV file ready to be uploaded to a GL application..
 
 ```csv
@@ -45,7 +47,12 @@ graph TD;
     BC-->BD["S3"]
 
     CA["Manual entries (Excel)"]-->CC["Python script"]
-    CC-->CD["S3"]
+    CC-->CD["CSV"]
+    CD-->CE["S3"]
+
+    CE-->DBT["dbt"]
+    F-->DBT
+    BD-->DBT
 ```
 
 > [!NOTE]

@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ ref( 'vientityyppi_vienti' ) }} 
+    select * from {{ source(  'external_csv', 'bank_statement_match_entry' ) }} 
 ),
 renamed as (
     select

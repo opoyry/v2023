@@ -142,6 +142,7 @@ def load_rules() -> dict:
     yaml.register_class(Credit)
     yaml.register_class(GlRule)
 
+    print("Read yaml rules")
     with open(f"{currentDir}/glrules.yml") as file:
         listRules = yaml.load(file)
 

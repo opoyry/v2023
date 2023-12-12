@@ -1,0 +1,44 @@
+ersion: 2
+
+models:
+  - name: read_amex
+    columns:
+      - name: date
+        type: date
+        tests:
+          - not_null
+
+  - name: read_manual_entry
+    config:
+      materialized: table
+      tags: [ 'python' ]
+      manual_entry_file_name: '{{ var("manual_entry_file_name") }}'
+    columns:
+      - name: date
+        type: date
+        tests:
+          - not_null
+
+  - name: read_manual_entry_json
+    config:
+      materialized: table
+      tags: [ 'python' ]
+      manual_entry_json_file_name: '{{ var("manual_entry_json_file_name") }}'
+    columns:
+      - name: date
+        type: date
+        tests:
+          - not_null
+
+  - name: read_bank_statement
+    config:
+      materialized: table
+      tags: [ 'python' ]
+      file_name_pattern: '/Users/olli/Downloads/BO-205364-*-*.xml'
+    columns:
+      - name: date
+        type: date
+        tests:
+          - not_null
+      - name: date2
+        type: date

@@ -5,10 +5,18 @@ config-version: 2
 dbt-cloud: 
     project-id: 312531
     
-# This setting configures which "profile" dbt uses for this project.
-profile: 'v2023_prod'
+# This setting configures which "profile" dbt uses for this project, 'v2023_prod' == Snowflake, 'local' == DuckDB
+#profile: 'v2023_prod'
+profile: 'local'
 
-#vars:
+vars:
+  amex_csv_file_name: /Users/olli/Downloads/activity.csv
+  amex.outputFile: ~/oma/v2023/2023/amex.parquet
+  tax_payment_parquet_file_name: /Users/olli/Downloads/tax_payment.parquet #'Tapahtumat 1753580-2 (1)'.parquet
+  manual_entry_file_name: /Users/olli/Library/CloudStorage/Dropbox/Kirjanpito2023/Kirjanpitoviennit2023.xlsx
+  manual_entry_json_file_name: ../2023/manual_entry_json.txt
+  output_file_name: ../2023/mp5_2023.csv
+
 #  external_location: "~/oma/v2023/2023/{name}.parquet"
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -16,7 +24,7 @@ profile: 'v2023_prod'
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-seed-paths: ["seeds"]
+#seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 

@@ -10,9 +10,7 @@ sources:
           enabled: true # "{{ var('my_source_table_enabled', false) }}"
         # external_location: "s3://datafy-dp-samples-ympfsg/TPCDS-TEST-100G/{name}/*.parquet"
     tables:
-      - name: tiliote_manual_vienti
-        description: One record per person who has purchased one or more items
-      - name: manual_journal_entries
+      - name: manual_journal_entry
         description: From Excel sheet through rules to journal entries
       - name: bank_statement
  
@@ -21,7 +19,10 @@ sources:
     meta:
       external_location:  "{{ 's3://essaimdev/snowflake/gl_sample_data/{name}.csv' if target.name == 'prod' else '~/oma/v2023/2023/{name}.csv' }}"
     tables:
-      - name: tiliote_manual_vienti
+      - name: bank_statement_match
+      - name: bank_statement_match_entry
+      - name: bank_statement_manual_entry
+      - name: invoice_entry_rule
 
   - name: external_s3
     database: OLLIDEMODB
