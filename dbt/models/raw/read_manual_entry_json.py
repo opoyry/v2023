@@ -1,5 +1,6 @@
-import pandas as pd
 import json
+
+import pandas as pd
 
 
 def model(dbt, session):
@@ -13,6 +14,7 @@ def model(dbt, session):
                 json_data = "{" + line.replace("'", '"') + "}"
                 try:
                     parsed_json = json.loads(json_data)
+                    parsed_json["rownum"] = len(listData) + 1
                     listData.append(parsed_json)
                 except json.decoder.JSONDecodeError as ve:
                     # logger.error(ve)
@@ -32,7 +34,7 @@ def model(dbt, session):
     for data in listData:
         iType = data["Type"]
         if iType not in dictRules:
-            logger.warn(f"Rule not found with type {iType} {json.dumps(data)}")
+            print(f"Rule not found with type {iType} {json.dumps(data)}")
         r = dictRules[iType].ProcessRule(data)
         # logger.debug(f"Result {r}")
         if r is not None:
@@ -46,7 +48,7 @@ def model(dbt, session):
     df["memo"] = df["Memo"].astype(str)
     df["dim1"] = df["Dim1"]
 
-    df = df[["date", "amount", "account", "memo", "dim1"]]
+    df = df[["rownum", "date", "amount", "account", "memo", "dim1"]]
 
     print("manual entries df", df)
     df.info()

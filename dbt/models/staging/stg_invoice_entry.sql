@@ -25,13 +25,19 @@ c as (
 	union
 	select *
 	from b
+),
+d as (
+	select 
+		row_number() OVER (ORDER BY date, amount DESC) as rownum,
+		date, account, dim1, amount, amount_vat, memo
+		from c
 )
-select date, account, dim1, amount, memo
-from c
+select rownum, date, account, dim1, amount, memo
+from d
 union
-select date, '2939', dim1, amount_vat, memo
-from c
+select rownum, date, '2939', dim1, amount_vat, memo
+from d
 UNION
-select date, '2871', dim1, -1 * ( amount + amount_vat ), memo
-from c
-order by 1, 3, 5, 4 desc
+select rownum, date, '2871', dim1, -1 * ( amount + amount_vat ), memo
+from d
+order by 1, 3

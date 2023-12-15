@@ -14,6 +14,7 @@ load_dotenv()
 templateDir = os.environ["read_pdf_invoices.templateDir"]
 invoicePdfDir = os.environ["read_pdf_invoices.invoicePdfDir"]
 invoiceJsonDir = os.environ["read_pdf_invoices.invoiceJsonDir"]
+invoiceJsonDirDetail = os.environ["read_pdf_invoices.invoiceJsonDir.Detail"]
 print("templateDir", templateDir)
 templates = read_templates(templateDir)
 print("templates", templates)
@@ -46,8 +47,9 @@ for filename in os.listdir(invoicePdfDir):
             res["product"] = f'{res["phone_number"]} / {res["phone_user"]}'
 
         data.append(res)
+
         # to_json.write_to_file(res, "./out" + filename.replace("pdf", "json"))
-        filename = os.path.join(invoiceJsonDir, filename.replace("pdf", "json"))
+        filename = os.path.join(invoiceJsonDirDetail, filename.replace("pdf", "json"))
         sJson = to_json.format_item(res, "%Y-%m-%d")
         with codecs.open(filename, "w", encoding="utf-8") as json_file:
             json.dump(
@@ -57,17 +59,19 @@ for filename in os.listdir(invoicePdfDir):
                 sort_keys=False,
                 ensure_ascii=False,
             )
-filename = os.path.join(invoiceJsonDir, "invoices.json")
+
+data = sorted(data, key=lambda k: k["date"])
+filename = os.path.join(invoiceJsonDir, "pdf-invoices.json")
 to_json.write_to_file(data, filename)
+print("Wrote PDF invoice data to file", filename)
 
+if False:
+    # Define a custom function to serialize datetime objects
+    def serialize_datetime(obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        raise TypeError("Type not serializable")
 
-# Define a custom function to serialize datetime objects
-def serialize_datetime(obj):
-    if isinstance(obj, datetime.datetime):
-        return obj.isoformat()
-    raise TypeError("Type not serializable")
-
-
-df = pd.DataFrame(data)
-print(df)
-print(json.dumps(data, default=serialize_datetime, indent=4))
+    df = pd.DataFrame(data)
+    print(df)
+    print(json.dumps(data, default=serialize_datetime, indent=4))

@@ -105,6 +105,7 @@ class GlRule:
             if transaction is not None and "Amount" in transaction:
                 dPvm = self.parsePvm(data["Date"])
                 transaction["Date"] = dPvm
+                transaction["rownum"] = data["rownum"]
                 transaction["Memo"] = data.get("Memo", "")
                 transaction["Journal"] = self.prefix + dPvm.strftime("%y-%m")
                 ret.append(transaction)

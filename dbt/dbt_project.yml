@@ -15,7 +15,7 @@ vars:
   tax_payment_parquet_file_name: /Users/olli/Downloads/tax_payment.parquet #'Tapahtumat 1753580-2 (1)'.parquet
   manual_entry_file_name: /Users/olli/Library/CloudStorage/Dropbox/Kirjanpito2023/Kirjanpitoviennit2023.xlsx
   manual_entry_json_file_name: ../2023/manual_entry_json.txt
-  output_file_name: ../2023/mp5_2023.csv
+  output_file_name: ../2023/gl-import.csv
 
 #  external_location: "~/oma/v2023/2023/{name}.parquet"
 # These configurations specify where dbt should look for different types of files.

@@ -3,6 +3,7 @@
     materialized='table'
   )
 }}
+with cte as (
 SELECT
 Päivämäärä::DATE as date,
 Kuvaus as memo1,
@@ -19,4 +20,18 @@ Viite as ref
 --, Luokka
 from {{ref( 'read_amex')}}
 -- from '{{ var("amex.outputFile") }}'
-
+)
+SELECT
+date,
+memo1,
+cardholder,
+account,
+amount,
+memo2,
+memo3,
+address,
+zip,
+country,
+ref
+FROM cte
+ORDER BY date, amount DESC

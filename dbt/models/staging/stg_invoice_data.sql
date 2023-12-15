@@ -7,7 +7,7 @@ SELECT
     invoice_number::varchar( 100 ) invoice_number, 
     date, 
     coalesce( max_amount, amount )::numeric amount,
-    amount_vat,
+    coalesce( amount_vat, 0)::numeric amount_vat,
     replace( product::varchar( 100 ), '"', '') product, -- replace('[', '').replace(']', '') 
     currency 
 {% elif target.type == 'snowflake' %}
@@ -24,7 +24,7 @@ SELECT
 	json_data:amount_vat::NUMBER(10,2) AS amount_vat
 {% endif %}
 FROM
-	'/Users/olli/oma/v2023/read_pdf_invoices/out/invoices.json'
+	'/Users/olli/oma/v2023/2023/pdf-invoices.json'
 ORDER BY
 	3
 )

@@ -20,9 +20,19 @@ def model(dbt, session):
     pandas_df["Kredit"] = pandas_df["Kredit"].apply(
         lambda x: round(x, 2) if x is not None else None
     )
-
     pandas_df.to_csv(
         output_file_name, index=False, quoting=csv.QUOTE_ALL, date_format="%d.%m.%Y"
     )
+
+    # Print also each entry type into own file
+    for entry_type in pandas_df["source"].unique():
+        print("entry_type", entry_type)
+        pandas_df[pandas_df["source"] == entry_type].to_csv(
+            output_file_name.replace(".csv", f"_{entry_type}.csv"),
+            index=False,
+            quoting=csv.QUOTE_ALL,
+            date_format="%d.%m.%Y",
+        )
+
     pandas_df.info()
     return dbt_df
