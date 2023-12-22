@@ -106,8 +106,10 @@ class GlRule:
                 dPvm = self.parsePvm(data["Date"])
                 transaction["Date"] = dPvm
                 transaction["rownum"] = data["rownum"]
+                transaction["filename"] = data["filename"]
                 transaction["Memo"] = data.get("Memo", "")
-                transaction["Journal"] = self.prefix + dPvm.strftime("%y-%m")
+                # transaction["Journal"] = self.prefix + dPvm.strftime("%y-%m")
+                transaction["type"] = data["Type"]
                 ret.append(transaction)
                 amountTot = amountTot + transaction["Amount"]
         if amountTot != 0:

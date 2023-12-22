@@ -10,12 +10,15 @@ dbt-cloud:
 profile: 'local'
 
 vars:
+  'dbt_date:time_zone': 'UTC'
+  dbt_constraints_enabled: true
   amex_csv_file_name: /Users/olli/Downloads/activity.csv
   amex.outputFile: ~/oma/v2023/2023/amex.parquet
   tax_payment_parquet_file_name: /Users/olli/Downloads/tax_payment.parquet #'Tapahtumat 1753580-2 (1)'.parquet
   manual_entry_file_name: /Users/olli/Library/CloudStorage/Dropbox/Kirjanpito2023/Kirjanpitoviennit2023.xlsx
-  manual_entry_json_file_name: ../2023/manual_entry_json.txt
-  output_file_name: ../2023/gl-import.csv
+  manual_entry_json_file_name: ../2023/manual_entry_json*.txt
+  output_file_name: ../output/gl-import.csv
+  read_pdf_invoices.invoiceJsonFileName : /Users/olli/oma/v2023/2023/pdf-invoices.json
 
 #  external_location: "~/oma/v2023/2023/{name}.parquet"
 # These configurations specify where dbt should look for different types of files.
@@ -47,7 +50,13 @@ models:
     # Config indicated by + and applies to all files under models/example/
     staging:
       +materialized: table # external # view
-
+  +incremental_strategy: "insert_overwrite"
 # If using DuckDB in-memory:
 #on-run-start:
 #  - "{{ register_upstream_external_models() }}"
+dispatch:
+  - macro_namespace: dbt
+    search_order: ['dbt_project_evaluator', 'dbt']
+tests:
+  dbt_project_evaluator:
+    +severity: "{{ env_var('DBT_PROJECT_EVALUATOR_SEVERITY', 'warn') }}"

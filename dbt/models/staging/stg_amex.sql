@@ -5,10 +5,11 @@
 }}
 
 WITH a AS (
-SELECT pvm, summa, memo
+SELECT pvm, ref, summa, memo
 FROM (
   SELECT
   date as pvm,
+  ref,
   amount as summa,
   memo1 as memo,
   cardholder as user
@@ -37,6 +38,7 @@ FROM (
 )
 SELECT
   pvm,
+  ref,
   summa,
   memo,
   rule
@@ -44,6 +46,7 @@ FROM a JOIN b ON a.memo LIKE '%' || b.rule || '%'
 UNION
 SELECT
   pvm,
+  ref,
   summa,
   memo,
   NULL

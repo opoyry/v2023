@@ -24,7 +24,7 @@ SELECT
 	json_data:amount_vat::NUMBER(10,2) AS amount_vat
 {% endif %}
 FROM
-	'/Users/olli/oma/v2023/2023/pdf-invoices.json'
+	 '{{ var("read_pdf_invoices.invoiceJsonFileName") }}' 
 ORDER BY
 	3
 )

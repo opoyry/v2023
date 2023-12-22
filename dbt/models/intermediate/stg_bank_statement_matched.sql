@@ -3,7 +3,7 @@ SELECT
 DISTINCT ON (  a.rownum, b.kdi ) 
 {% endif %}
 * 
-from  {{ ref( 'read_bank_statement' ) }} a,
+from  {{ ref( 'raw_bank_statement' ) }} a,
  {{ ref( 'bank_statement_match' ) }} b
 WHERE  (
     ( ifnull( b.similar_vs_like, false ) = false AND a.ref LIKE b.template )

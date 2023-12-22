@@ -1,7 +1,7 @@
 ersion: 2
 
 models:
-  - name: gl_csv_out
+  - name: fct_gl_csv_out
     config:
       tags: [ 'python' ]
       output_file_name: '{{ var("output_file_name") }}'

@@ -7,40 +7,12 @@ config(
   on_schema_change="ignore"
   )
 }}
-with cte as (
-SELECT
-Päivämäärä::DATE as date,
-Kuvaus as memo1,
-"Kortinhaltija," as cardholder,
-Tili as account,
-Summa as amount,
-"Laajennetut tiedot" as memo2,
-"Näkyy tiliotteessasi muodossa" as memo3,
-Osoite as address,
--- Paikkakunta, 
-Postinumero as zip,
-Maa as country,
-Viite as ref
---, Luokka
-from {{ref( 'read_amex')}}
--- from '{{ var("amex.outputFile") }}'
-)
-SELECT
- date
-,memo1
-,cardholder
-,account
-,amount
-,memo2
-,memo3
-,address
-,zip
-,country
-,ref
+SELECT date, date2, amount, ref, rownum, status
+,{{ dbt_utils.generate_surrogate_key(['date', 'rownum']) }} AS row_id
 ,{{ dbt_date.now() }}  as updated_at
 -- ,current_date() as created_at
 ,{{ dbt_date.now() }} as created_at
-FROM cte
+from  {{ ref( 'read_bank_statement' ) }}
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
@@ -48,4 +20,4 @@ FROM cte
   where date > (select max(date) from {{ this }})
 
 {% endif %}
-ORDER BY date, amount DESC
+ORDER BY date, rownum

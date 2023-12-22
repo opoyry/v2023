@@ -171,3 +171,4 @@ read_pdf_invoices/invoice_read_lambda/lambda-read-invoice.zip
 masked
 deleted
 v2023.duckdb.wal
+output

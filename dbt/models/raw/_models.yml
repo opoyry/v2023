@@ -3,10 +3,56 @@ ersion: 2
 models:
   - name: read_amex
     columns:
-      - name: date
+      - name: "Päivämäärä"
         type: date
+        constraints:
+          - type: not_null
         tests:
           - not_null
+
+  - name: raw_amex
+    config:
+      contract:
+        enforced: false  
+    columns:
+      - name: date
+        data_type: date
+        tests:
+          - not_null
+      - name: ref 
+        data_type: varchar(20)
+        constraints:
+          - type: primary_key
+          - type: not_null
+          - type: unique
+        tests:
+          - not_null
+          - unique
+          - dbt_constraints.primary_key
+
+  - name: raw_bank_statement
+    config:
+      contract:
+        enforced: false  
+    columns:
+      - name: date
+        data_type: date
+        tests:
+          - not_null
+      - name: rownum
+        data_type: int
+        tests:
+          - not_null
+      - name: row_id
+        data_type: varchar(20)
+        tests:
+          - not_null
+          - unique
+        constraints:
+          - type: primary_key
+    tests:
+      - dbt_constraints.primary_key:
+          column_name: row_id
 
   - name: read_manual_entry
     config:
@@ -15,7 +61,7 @@ models:
       manual_entry_file_name: '{{ var("manual_entry_file_name") }}'
     columns:
       - name: date
-        type: date
+        data_type: date
         tests:
           - not_null
 
@@ -26,7 +72,7 @@ models:
       manual_entry_json_file_name: '{{ var("manual_entry_json_file_name") }}'
     columns:
       - name: date
-        type: date
+        data_type: date
         tests:
           - not_null
 
@@ -37,8 +83,8 @@ models:
       file_name_pattern: '/Users/olli/Downloads/BO-205364-*-*.xml'
     columns:
       - name: date
-        type: date
+        data_type: date
         tests:
           - not_null
       - name: date2
-        type: date
+        data_type: date

@@ -1,9 +1,9 @@
 version: 2
 
 models:
-  - name: stg_bank_statement_entry
+  - name: fct_bank_statement_entry
     columns:
       - name: tili
-        type: string
+        data_type: string
         tests:
           - not_null
