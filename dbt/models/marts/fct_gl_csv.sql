@@ -19,6 +19,12 @@ from  {{ ref( 'fct_invoice_entry' ) }} b
 union
 select 'amex', 'KÄT4', rownum, date as pvm, account_number as tili, dim1 as dimensio, amount as summa, memo as muistio
 from  {{ ref( 'fct_amex_transactions' ) }} c
+union
+select 'manual_entry', 'KÄT2', rownum, date as pvm, account_number as tili, dim1 as dimensio, amount as summa, memo as muistio
+from  {{ ref( 'fct_manual_entry_excel' ) }} c
+union
+select 'e-invoice', 'OL', rownum, date as pvm, account_number as tili, dim1 as dimensio, amount as summa, memo as muistio
+from  {{ ref( 'fct_maventa_invoice_entry' ) }} c
 order by 1, 2, 3
 )
 select 

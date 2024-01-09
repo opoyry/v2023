@@ -10,6 +10,7 @@ dbt-cloud:
 profile: 'local'
 
 vars:
+  fiscalYear: 2023
   'dbt_date:time_zone': 'UTC'
   dbt_constraints_enabled: true
   amex_csv_file_name: /Users/olli/Downloads/activity.csv
@@ -19,6 +20,7 @@ vars:
   manual_entry_json_file_name: ../2023/manual_entry_json*.txt
   output_file_name: ../output/gl-import.csv
   read_pdf_invoices.invoiceJsonFileName : /Users/olli/oma/v2023/2023/pdf-invoices.json
+  amex_cardholder: 'OLLI POYRY'
 
 #  external_location: "~/oma/v2023/2023/{name}.parquet"
 # These configurations specify where dbt should look for different types of files.
@@ -54,6 +56,7 @@ models:
 # If using DuckDB in-memory:
 #on-run-start:
 #  - "{{ register_upstream_external_models() }}"
+on-run-end: "{{ run_proc() }}"
 dispatch:
   - macro_namespace: dbt
     search_order: ['dbt_project_evaluator', 'dbt']

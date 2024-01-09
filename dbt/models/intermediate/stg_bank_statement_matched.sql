@@ -22,3 +22,4 @@ AND rownum NOT IN (
 QUALIFY ROW_NUMBER() OVER (PARTITION BY a.rownum, b.kdi ORDER BY a.rownum, b.kdi) = 1
 {% endif %}
 ORDER BY  a.rownum, not ifnull( b.similar_vs_like, false ), b.kdi
+

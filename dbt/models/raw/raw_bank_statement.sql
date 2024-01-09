@@ -4,7 +4,8 @@ config(
   unique_key=['ref'],
   merge_exclude_columns = ['created_at', 'updated_at'],
   incremental_strategy = "delete+insert",
-  on_schema_change="ignore"
+  on_schema_change="ignore",
+  full_refresh = false
   )
 }}
 SELECT date, date2, amount, ref, rownum, status

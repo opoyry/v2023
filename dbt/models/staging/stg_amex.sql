@@ -5,17 +5,24 @@
 }}
 
 WITH a AS (
-SELECT pvm, ref, summa, memo
-FROM (
-  SELECT
-  date as pvm,
-  ref,
-  amount as summa,
-  memo1 as memo,
-  cardholder as user
-  FROM {{ ref('raw_amex') }}
-)
-WHERE user = 'OLLI POYRY'
+  SELECT pvm, ref, summa, memo
+  FROM (
+    SELECT
+    date as pvm,
+    ref,
+    amount as summa,
+    memo1 as memo,
+    cardholder as user
+    FROM {{ ref('raw_amex') }}
+  ) raw_amex
+  WHERE user = '{{ var('amex_cardholder')}}'
+  AND NOT EXISTS (
+    SELECT 0
+    FROM  {{ ref( 'fct_manual_entry' ) }}
+    WHERE date = raw_amex.pvm
+    AND UPPER( memo ) LIKE 'AMEX:%'
+    AND amount = raw_amex.summa
+  )
 ),
 b AS (
 

@@ -65,6 +65,17 @@ models:
         tests:
           - not_null
 
+  - name: read_manual_entry_excel
+    config:
+      materialized: table
+      tags: [ 'python' ]
+      manual_entry_file_name: '{{ var("manual_entry_file_name") }}'
+    columns:
+      - name: date
+        data_type: date
+        tests:
+          - not_null
+
   - name: read_manual_entry_json
     config:
       materialized: table
@@ -81,6 +92,7 @@ models:
       materialized: table
       tags: [ 'python' ]
       file_name_pattern: '/Users/olli/Downloads/BO-205364-*-*.xml'
+      #                                         BO-205364-20240104-0941043714.xml
     columns:
       - name: date
         data_type: date
@@ -88,3 +100,23 @@ models:
           - not_null
       - name: date2
         data_type: date
+
+  - name: read_maventa_invoices
+    config:
+      materialized: table
+      tags: [ 'python' ]
+      maventa_invoices_excel_file_name: '/Users/olli/Downloads/invoices*.xls'
+    columns:
+      - name: date
+        data_type: date
+        tests:
+          - not_null
+      - name: due_date
+        data_type: date
+        tests:
+          - not_null
+      - name: date_received
+        data_type: datetime
+        tests:
+          - not_null
+      
